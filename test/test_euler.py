@@ -9,9 +9,9 @@ def test_euler_method():
     x0 = 0
     y0 = 1
     h = 0.1
-    xf = 0.5
+    n = 5
 
-    method = EulerMethod(f, x0, y0, h, xf)
+    method = EulerMethod(f, x0, y0, h, n)
     results = method.solve()
 
     expected_results = [

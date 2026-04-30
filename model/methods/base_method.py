@@ -2,19 +2,27 @@ from abc import ABC, abstractmethod
 
 class BaseMethod(ABC):
     
-    def __init__(self, f, x0, y0, h, xf):
+    def __init__(self, f, x0, y0, h, n):
         self.f = f
         self.x0 = x0
         self.y0 = y0
+        if h <= 0:
+            raise ValueError("El paso h debe ser mayor que 0")    
         self.h = h
-        self.xf = xf
+        if self.n < 2:
+            raise ValueError("Muy pocas iteraciones, n no puede ser menor que 2")    
+        self.n = n
+    
+    @property
+    def xf(self):
+        return self.x0 + self.n * self.h
 
     def solve(self):
         x = self.x0
         y = self.y0
         results = [(x, y)]
 
-        while x < self.xf:
+        for i in range(self.n):
             y = self.step(x, y)
             x = x + self.h
 
