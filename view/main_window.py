@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from view.components.left_sidebar import LeftSidebar
-
 class MainWindow(ctk.CTk):
 
     def __init__(self):
