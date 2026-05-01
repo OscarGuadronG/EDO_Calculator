@@ -1,5 +1,12 @@
-from model.methods.euler.demo_suma import sumar
+import customtkinter as ctk
 
-resultado = sumar(2, 3)
+ctk.set_appearance_mode("dark")  # "light" o "system"
+ctk.set_default_color_theme("blue")
 
-print("Resultado:", resultado)
+app = ctk.CTk()
+app.geometry("400x300")
+
+label = ctk.CTkLabel(app, text="Hola, CustomTkinter!")
+label.pack(pady=20)
+
+app.mainloop()
