@@ -9,7 +9,7 @@ class BaseMethod(ABC):
         if h <= 0:
             raise ValueError("El paso h debe ser mayor que 0")    
         self.h = h
-        if self.n < 2:
+        if n < 2:
             raise ValueError("Muy pocas iteraciones, n no puede ser menor que 2")    
         self.n = n
     
