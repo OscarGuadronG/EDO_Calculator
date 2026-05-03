@@ -1,12 +1,14 @@
 import customtkinter as ctk
 
+from sympy import sympify, symbols, lambdify
 from controller.euler_controller import EulerController
 from controller.main_controller import MainController
 from view.components.left_sidebar import LeftSidebar
 from view.frames.result_table import ResultTable
 from view.frames.graph_result import GraphFrame
+from view.dialogs.calculator_f import CalculatorF
 
-
+x, y = symbols('x y')
 class MainWindow(ctk.CTk):
 
     def __init__(self):
@@ -16,6 +18,7 @@ class MainWindow(ctk.CTk):
         # Estado inicial
         self.selected_group = 'euler'
         self.selected_method = 'explicito'
+        self.funcion = None
         # Controladores
         controllers = {
             'euler': EulerController()
@@ -35,6 +38,14 @@ class MainWindow(ctk.CTk):
         self.content = ctk.CTkFrame(self)
         self.content.pack(side="right", expand=True, fill="both")
         ## Entradas
+        row_f = ctk.CTkFrame(self.content)
+        row_f.pack(pady=5, padx=20, fill="x")
+        self.label_f = ctk.CTkLabel(row_f, text="f(x, y): ")
+        self.label_f.pack(side="left")
+        self.label_f_value = ctk.CTkLabel(row_f, text="No definida", text_color="red")
+        self.label_f_value.pack(side="left")
+        self.btn_funcion = ctk.CTkButton(row_f, text="Ingresar", command=self.open_calculator)
+        self.btn_funcion.pack(side="right", padx=15)
         ### Validación para floats
         vcmd_f = (self.register(self.validate_float), '%P')
         # X0
@@ -86,11 +97,17 @@ class MainWindow(ctk.CTk):
         self.graph_frame = GraphFrame(self.content)
         self.graph_frame.pack(fill="both", expand=True)
     
+    def open_calculator(self):
+        CalculatorF(self, self.on_function_input)
     ## Callbacks    
     def on_menu_select(self, selection):
         group, method = selection
         self.selected_group = group
         self.selected_method = method
+    
+    def on_function_input(self, f, expr_str):
+        self.funcion = f
+        self.label_f_value.configure(text=expr_str, text_color="green")
 
     def on_execute(self):
         try:
@@ -107,7 +124,10 @@ class MainWindow(ctk.CTk):
                 return
             self.error_label.configure(text="")
             # Función de prueba
-            f = lambda x, y: x + y
+            expresion = sympify(self.label_f_value.cget("text"))
+            f = lambdify((x, y), expresion, "numpy")
+            if f is None:
+                raise ValueError("Función no definida")
             result = self.main_controller.execute_group(
                 self.selected_group,
                 self.selected_method,
@@ -129,13 +149,11 @@ class MainWindow(ctk.CTk):
 
     ##Validaciones
     def validate_float(self, value):
+        import re
         if value == "":
             return True
-        try:
-            float(value)
-            return True
-        except ValueError:
-            return False
+        pattern = r'^-?\d*\.?\d*$'
+        return re.match(pattern, value) is not None
     
     def validate_int(self, value):
         if value == "":
