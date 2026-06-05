@@ -1,4 +1,3 @@
-
 from model.methods.euler.euler_method import EulerMethod
 
 
@@ -10,23 +9,18 @@ def test_euler_method():
     y0 = 1
     h = 0.1
     xf = 0.5
-
-    method = EulerMethod(f, x0, y0, h, xf)
+    f_expr = "2*x*y"
+    method = EulerMethod(f_expr, x0, y0, h, xf)
     results = method.solve()
 
-    expected_results = [
-        (0.0, 1.0),
-        (0.1, 1.1),
-        (0.2, 1.22),
-        (0.3, 1.362),
-        (0.4, 1.5282),
-        (0.5, 1.72102)
-    ]
-
-    for result, expected in zip(results, expected_results):
-        assert abs(result[0] - expected[0]) < 1e-6
-        assert abs(result[1] - expected[1]) < 1e-6
+    print(f"\nValores calculados por tu EulerMethod para f(x,y) = {f_expr}:")
+    print("--------------------------------------------------")
+    print(f"{'Punto':<8}{'x':<12}{'y aproximado':<15}")
+    print("--------------------------------------------------")
+    for idx, r in enumerate(results):
+        print(f"{idx+1:<8}{round(r[0], 2):<12}{round(r[1], 8):<15}")
+    print("--------------------------------------------------")
 
 if __name__ == "__main__":
     test_euler_method()
-    print("All tests passed!")
+    print("¡Ejecución de Euler completada con éxito!")

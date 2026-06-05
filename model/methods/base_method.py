@@ -5,7 +5,7 @@ class BaseMethod(ABC):
     def __init__(self, f, x0, y0, h, xf):
         self.f = f
         self.x0 = x0
-        self.y0 = y0
+        self.y0 = y0    
         self.h = h
         self.xf = xf
 

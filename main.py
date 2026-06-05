@@ -1,5 +1,4 @@
-from model.methods.euler.demo_suma import sumar
+from ui.app import run_app
 
-resultado = sumar(2, 3)
-
-print("Resultado:", resultado)
+if __name__ == "__main__":
+    run_app()
