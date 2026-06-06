@@ -1,19 +1,17 @@
-from model.methods.euler.euler_method import EulerMethod
+from model.methods.runge_kutta.Explicitos.rk_orden_2_method import RK2Method
 
-
-def f(x, y):
-    return x + y
-
-def test_euler_method():
-    x0 = 0
-    y0 = 1
+def test_rk2_specific():
+    x0 = 0.0
+    y0 = 1.0
     h = 0.1
-    n = 5
+    xf = 5
+    f_expr = "2*x*y"
 
-    method = EulerMethod(f, x0, y0, h, n)
+  
+    method = RK2Method(f_expr, x0, y0, h, xf)
     results = method.solve()
 
-    print(f"\nValores calculados por tu EulerMethod para f(x,y) = {f_expr}:")
+    print(f"\nValores calculados por RK2 para f(x,y) = {f_expr}:")
     print("--------------------------------------------------")
     print(f"{'Punto':<8}{'x':<12}{'y aproximado':<15}")
     print("--------------------------------------------------")
@@ -22,5 +20,4 @@ def test_euler_method():
     print("--------------------------------------------------")
 
 if __name__ == "__main__":
-    test_euler_method()
-    print("¡Ejecución de Euler completada con éxito!")
+    test_rk2_specific()

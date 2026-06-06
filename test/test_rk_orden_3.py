@@ -1,19 +1,18 @@
-from model.methods.euler.euler_method import EulerMethod
+from model.methods.runge_kutta.Explicitos.rk_orden_3_method import RK3Method
 
+def test_rk3_specific():
 
-def f(x, y):
-    return x + y
-
-def test_euler_method():
-    x0 = 0
-    y0 = 1
+    x0 = 0.0
+    y0 = 1.0
     h = 0.1
-    n = 5
+    xf = 5
+    f_expr = "2*x*y"
 
-    method = EulerMethod(f, x0, y0, h, n)
+
+    method = RK3Method(f_expr, x0, y0, h, xf)
     results = method.solve()
 
-    print(f"\nValores calculados por tu EulerMethod para f(x,y) = {f_expr}:")
+    print(f"\nValores calculados por RK3 para f(x,y) = {f_expr}:")
     print("--------------------------------------------------")
     print(f"{'Punto':<8}{'x':<12}{'y aproximado':<15}")
     print("--------------------------------------------------")
@@ -22,5 +21,4 @@ def test_euler_method():
     print("--------------------------------------------------")
 
 if __name__ == "__main__":
-    test_euler_method()
-    print("¡Ejecución de Euler completada con éxito!")
+    test_rk3_specific()
