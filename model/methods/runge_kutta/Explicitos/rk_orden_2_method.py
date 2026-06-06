@@ -1,7 +1,7 @@
 import sympy as sp
 from model.methods.base_method import BaseMethod
 
-class RK4Method(BaseMethod):
+class RK2Method(BaseMethod):
     def __init__(self, f_expr, x0, y0, h, xf):
         self.x_sym = sp.Symbol('x')
         self.y_sym = sp.Symbol('y')
@@ -10,14 +10,12 @@ class RK4Method(BaseMethod):
         super().__init__(f_lambda, x0, y0, h, xf)
         
     def step(self, x, y):
+        # Pendiente al inicio del intervalo
         k1 = self.f(x, y)
         
-        x_half = x + 0.5 * self.h
-        k2 = self.f(x_half, y + 0.5 * self.h * k1)
-        k3 = self.f(x_half, y + 0.5 * self.h * k2)
+        # Pendiente calculada al final del intervalo aproximado
+        k2 = self.f(x + self.h, y + self.h * k1)
         
-        x_next = x + self.h
-        k4 = self.f(x_next, y + self.h * k3)
-        
-        
-        return y + (self.h / 6.0) * (k1 + 2*k2 + 2*k3 + k4)
+        # El salto definitivo usando el promedio de ambas pendientes
+        y_next = y + (self.h / 2.0) * (k1 + k2)
+        return y_next
