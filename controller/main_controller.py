@@ -2,7 +2,8 @@ class MainController:
     def __init__(self, controller):
         self.controllers = controller
 
-    def execute_group(self, group, method, f, x0, y0, h, n):
+    def execute_group(self, group, method, f, x0, y0, xf, n):
+        h=(xf - x0) / n
         controller = self.controllers.get(group)
         
         if not controller:

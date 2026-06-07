@@ -6,11 +6,11 @@ class BaseMethod(ABC):
         self.f = f
         self.x0 = x0
         self.y0 = y0
-        if h <= 0:
-            raise ValueError("El paso h debe ser mayor que 0")    
+        if h == 0:
+            raise ValueError("El paso h debe distinto de 0")    
         self.h = h
-        if n < 2:
-            raise ValueError("Muy pocas iteraciones, n no puede ser menor que 2")    
+        if n <= 0:
+            raise ValueError("n no puede ser menor o igual a 0")    
         self.n = n
     
     @property

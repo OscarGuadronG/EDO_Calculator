@@ -1,18 +1,24 @@
-import customtkinter as ctk
-from view.style import theme
-from view.components.create_seccion import CreateSeccion
+import streamlit as st
 
-class LeftSidebar(ctk.CTkFrame):
+def left_sidebar():
+
+    st.sidebar.title("Métodos")
+
+    if "metodo" not in st.session_state:
+        st.session_state.metodo = ("euler", "simple")
+    selecion = None
+
+    with st.sidebar.expander("Euler", expanded=True):
+        if st.button("Euler Explícito"):
+            st.session_state.metodo = ("euler", "simple")
+        if st.button("Euler Mejorado"):
+            st.session_state.metodo = ("euler", "mejorado")
+
+    with st.sidebar.expander("Taylor", expanded=True):
+        if st.button("Serie de Taylor"):
+            st.session_state.metodo = ("taylor", "serie")
+
     
-    def __init__(self, master, on_select):
-        super().__init__(master)
-        self.on_select = on_select
-        self.build()
-    
-    def build(self):
-        euler_seccion = CreateSeccion(self, "Euler", [
-            ("Explícito", ("euler", "explicito")),
-            ("Mejorado", ("euler", "mejorado")),
-        ], self.on_select)
-        euler_seccion.pack(fill="x")
+    return st.session_state.metodo
+
     
