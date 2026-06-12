@@ -2,7 +2,7 @@ import sympy as sp
 from scipy.optimize import fsolve
 from model.methods.base_method import BaseMethod
 
-class Euler_Implicit_Method(BaseMethod):
+class EulerImplicito(BaseMethod):
     def __init__(self, f_expr, x0, y0, h, xf):
         self.x_sym = sp.Symbol('x')
         self.y_sym = sp.Symbol('y')

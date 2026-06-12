@@ -1,8 +1,8 @@
 import sympy as sp
 from model.methods.base_method import BaseMethod
 
-class TaylorSecondOrderAutoMethod(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf):
+class TaylorMethod(BaseMethod):
+    def __init__(self, f_expr, x0, y0, h, xf ):
         """
         f_expr: Una cadena de texto con la función o una expresión de SymPy.
                 Ejemplo: "x + y"

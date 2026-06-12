@@ -9,7 +9,7 @@ grupo,method = left_sidebar()
 st.write(f"Grupo: {grupo}")
 st.write(f"Método: {method}")
 
-if grupo == "euler" and method == "explicito":
+if grupo == "euler" and method == "simple":
     st.write("Has seleccionado el método de Euler Explícito.")
 elif grupo == "euler" and method == "mejorado":
     st.write("Has seleccionado el método de Euler Mejorado.")
