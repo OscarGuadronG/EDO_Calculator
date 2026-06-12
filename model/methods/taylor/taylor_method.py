@@ -1,35 +1,46 @@
+from ast import expr
 import sympy as sp
 from model.methods.base_method import BaseMethod
 
 class TaylorMethod(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf ):
+    def __init__(self, f_expr, x0, y0, h, xf, order):
         """
         f_expr: Una cadena de texto con la función o una expresión de SymPy.
                 Ejemplo: "x + y"
         """
-        # Definimos las variables simbólicas
+        self.order = order
         self.x_sym = sp.Symbol('x')
         self.y_sym = sp.Symbol('y')
         
         # Convertimos el string a una expresión matemática de SymPy
         self.f_expr = sp.sympify(f_expr)
+        self.derivadas = []
+        self.derivadas.append(self.f_expr)
+
         
-        # 1. Calculamos la derivada total automáticamente:
-        # d/dx (f(x,y)) = df/dx + df/dy * dy/dx  (donde dy/dx es la misma f)
-        df_dx = sp.diff(self.f_expr, self.x_sym)
-        df_dy = sp.diff(self.f_expr, self.y_sym)
-        self.df_expr = df_dx + df_dy * self.f_expr
+        # 1. Calculamos las derivadas necesarias para la serie de Taylor
+        current = self.f_expr
+
+        for i in range(order - 1):
+            current = self.derivada_total(current)
+            self.derivadas.append(current)
         
-        # 2. Convertimos las expresiones de SymPy en funciones de Python ultrarrápidas (lambdas)
-        f_lambda = sp.lambdify((self.x_sym, self.y_sym), self.f_expr, 'numpy')
-        self.df_lambda = sp.lambdify((self.x_sym, self.y_sym), self.df_expr, 'numpy')
+        taylor_expr = self.y_sym
+            
+        for i, derivada in enumerate(self.derivadas):
+            taylor_expr += (self.h ** (i + 1)) * derivada / sp.factorial(i + 1)
+        
+        # Creamos una función lambda a partir de la expresión de Taylor
+        f_lambda = sp.lambdify((self.x_sym, self.y_sym), taylor_expr, "numpy")
         
         # Pasamos la función f_lambda a la clase base
         super().__init__(f_lambda, x0, y0, h, xf)
     
     def step(self, x, y):
-        # Evaluamos usando las funciones generadas automáticamente
-        primer_orden = self.h * self.f(x, y)
-        segundo_orden = ((self.h ** 2) / 2.0) * self.df_lambda(x, y)
-        
-        return y + primer_orden + segundo_orden
+        return self.f_lambda(x, y)
+
+    def derivada_total(self, expr):
+        dx = sp.diff(expr, self.x_sym)
+        dy = sp.diff(expr, self.y_sym)
+
+        return dx + dy * self.f_expr
