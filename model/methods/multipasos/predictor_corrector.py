@@ -1,4 +1,3 @@
-from pyparsing import results
 import sympy as sp
 from model.methods.base_method import BaseMethod
 

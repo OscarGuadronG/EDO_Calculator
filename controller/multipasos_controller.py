@@ -4,6 +4,7 @@ from model.methods.multipasos.adams_bashfoth import adams_bashforth_4_method
 from model.methods.multipasos.Adams_Moulton import adams_moulton_2_method
 from model.methods.multipasos.Adams_Moulton import adams_moulton_3_method
 from model.methods.multipasos.Adams_Moulton import adams_moulton_4_method
+from model.methods.multipasos.predictor_corrector import PredictorCorrectorMethod
 
 class MultipasosController:
 
@@ -20,6 +21,8 @@ class MultipasosController:
             solver = adams_moulton_3_method(f, x0, y0, h, xf)
         if method == "moulton_4":
             solver = adams_moulton_4_method(f, x0, y0, h, xf)
+        if method == "predictor_corrector":
+            solver = PredictorCorrectorMethod(f, x0, y0, h, xf)
         else:
             raise ValueError("Metodo no soportado")
         results = solver.solve()
