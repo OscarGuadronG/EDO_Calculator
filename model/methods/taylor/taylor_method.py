@@ -2,7 +2,7 @@ import sympy as sp
 from model.methods.base_method import BaseMethod
 
 class TaylorSecondOrderAutoMethod(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf):
+    def __init__(self, f_expr, x0, y0, h, n):
         """
         f_expr: Una cadena de texto con la función o una expresión de SymPy.
                 Ejemplo: "x + y"
@@ -25,7 +25,7 @@ class TaylorSecondOrderAutoMethod(BaseMethod):
         self.df_lambda = sp.lambdify((self.x_sym, self.y_sym), self.df_expr, 'numpy')
         
         # Pasamos la función f_lambda a la clase base
-        super().__init__(f_lambda, x0, y0, h, xf)
+        super().__init__(f_lambda, x0, y0, h, n)
     
     def step(self, x, y):
         # Evaluamos usando las funciones generadas automáticamente

@@ -2,12 +2,12 @@ import sympy as sp
 from model.methods.base_method import BaseMethod
 
 class AdamsBashforth3Method(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf):
+    def __init__(self, f_expr, x0, y0, h, n):
         self.x_sym = sp.Symbol('x')
         self.y_sym = sp.Symbol('y')
         self.f_expr = sp.sympify(f_expr)
         f_lambda = sp.lambdify((self.x_sym, self.y_sym), self.f_expr, 'numpy')
-        super().__init__(f_lambda, x0, y0, h, xf)
+        super().__init__(f_lambda, x0, y0, h, n)
         
     def solve(self):
         results = [(self.x0, self.y0)]

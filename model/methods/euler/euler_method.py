@@ -2,7 +2,7 @@ import sympy as sp
 from model.methods.base_method import BaseMethod
 
 class EulerMethod(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf):
+    def __init__(self, f_expr, x0, y0, h, n):
         """
         f_expr: Una cadena de texto con la función (ej. "2*x*y" o "(x**2 + 1)/y")
         """
@@ -17,7 +17,7 @@ class EulerMethod(BaseMethod):
         f_lambda = sp.lambdify((self.x_sym, self.y_sym), self.f_expr, 'numpy')
         
         # 4. Le pasamos esa función lambda ya lista a la clase base
-        super().__init__(f_lambda, x0, y0, h, xf)
+        super().__init__(f_lambda, x0, y0, h, n)
         
     def step(self, x, y):
         # El método step queda super limpio y corto, justo como lo tenías
