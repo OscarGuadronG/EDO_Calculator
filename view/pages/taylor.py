@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from controller.taylor_controller import TaylorController
 from controller.main_controller import MainController

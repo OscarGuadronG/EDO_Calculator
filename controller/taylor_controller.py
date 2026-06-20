@@ -7,4 +7,11 @@ class TaylorController:
             solver = TaylorMethod(f, x0, y0, h, xf, order)
         else:
             raise ValueError(f"Método '{method}' no soportado en TaylorController")
-        return solver.solve()
+
+        results = solver.solve()
+
+        return {
+                "points": results,
+                "x": [p[0] for p in results],
+                "y": [p[1] for p in results],
+            }

@@ -5,7 +5,7 @@ from model.methods.euler.euler_implicito import EulerImplicito
 class EulerController:
 
     def execute(self, method, f, x0, y0, h, xf, **keywargs):
-        if method == "simple":
+        if method == "explicito":
             solver = EulerMethod(f, x0, y0, h, xf)
         elif method == "mejorado":
             solver = EulerMejorado(f, x0, y0, h, xf)

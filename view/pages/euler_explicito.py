@@ -8,7 +8,6 @@ main_controller = MainController({
     "euler": EulerController()
 })
 
-
 def show_euler_explicito():
 
     st.header("Método de Euler Explícito")
