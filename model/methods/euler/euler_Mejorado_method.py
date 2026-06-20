@@ -13,3 +13,5 @@ class EulerMejorado(BaseMethod):
         y_pred = y + self.h * self.f(x, y)
         xnext = x + self.h
         return y + 0.5 * self.h * (self.f(x, y) + self.f(xnext, y_pred))
+    
+

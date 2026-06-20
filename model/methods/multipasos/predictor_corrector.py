@@ -58,5 +58,4 @@ class PredictorCorrectorMethod(BaseMethod):
         return results
 
     def step(self, x, y):
-        # Aquí se implementaría la lógica para un solo paso del método predictor-corrector
         pass

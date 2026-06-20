@@ -9,22 +9,22 @@ from model.methods.multipasos.predictor_corrector import PredictorCorrectorMetho
 class MultipasosController:
 
     def execute(self, method, f, x0, y0, h, xf, **keywargs):
-        if method == "bash_2":
+        if method == "ab2":
             solver = adams_bashforth_2_method(f, x0, y0, h, xf)
-        if method == "bash_3":
+        if method == "ab3":
             solver = adams_bashforth_3_method(f, x0, y0, h, xf)
-        if method == "bash_4":
+        if method == "ab4":
             solver = adams_bashforth_4_method(f, x0, y0, h, xf)
-        if method == "moulton_2":
+        if method == "am2":
             solver = adams_moulton_2_method(f, x0, y0, h, xf)
-        if method == "moulton_3":
+        if method == "am3":
             solver = adams_moulton_3_method(f, x0, y0, h, xf)
-        if method == "moulton_4":
+        if method == "am4":
             solver = adams_moulton_4_method(f, x0, y0, h, xf)
         if method == "predictor_corrector":
             solver = PredictorCorrectorMethod(f, x0, y0, h, xf)
         else:
-            raise ValueError("Metodo no soportado")
+            raise ValueError(f"Método '{method}' no soportado")
         results = solver.solve()
         return {
                 "points": results,

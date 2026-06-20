@@ -12,8 +12,12 @@ class EulerController:
         elif method == "implicito":
             solver = EulerImplicito(f, x0, y0, h, xf)
         else:
-            raise ValueError("Metodo no soportado")
+            raise ValueError(
+                f"Método '{method}' no soportado"
+            )
+
         results = solver.solve()
+
         return {
                 "points": results,
                 "x": [p[0] for p in results],
