@@ -7,6 +7,7 @@ from controller.runge_kutta_controller import RungeKuttaController
 from controller.taylor_controller import TaylorController
 from view.components.left_sidebar import left_sidebar
 from view.pages.edo_page import show_edo_page
+from view.pages.taylor import show_taylor
 
 main_controller = MainController({
     "euler": EulerController(),
@@ -26,3 +27,5 @@ grupo, metodo = left_sidebar()
 
 if grupo != "taylor" and metodo != "serie":
     show_edo_page(main_controller, grupo, metodo)
+else:
+    show_taylor(main_controller, grupo, metodo)
