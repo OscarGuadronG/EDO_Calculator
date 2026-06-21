@@ -7,9 +7,6 @@ from model.methods.runge_kutta.Implicitos.Gauss_Legendre_method import GaussLege
 from model.methods.runge_kutta.Implicitos.traprecio_method import TrapecioMethod
 
 class RungeKuttaController:
-    def __init__(self, view):
-        self.view = view
-
     def execute(self, method, f, x0, y0, h, xf, **keywargs):
         if method == "punto_medio":
             solver = RK2MidpointMethod(f, x0, y0, h, xf)
