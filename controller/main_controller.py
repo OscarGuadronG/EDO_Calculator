@@ -10,5 +10,5 @@ class MainController:
         
         if not controller:
             raise ValueError(f"Grupo '{group}' no soportado")
-        return controller.execute(method, f, x0, y0, h, xf, **keywargs)
+        return controller.execute(method, f, x0, y0, h, n, xf, **keywargs)
         

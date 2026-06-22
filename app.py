@@ -1,5 +1,6 @@
 import streamlit as st
 
+from util.encabezados import Encabezado
 from controller.euler_controller import EulerController
 from controller.main_controller import MainController
 from controller.multipasos_controller import MultipasosController
@@ -24,6 +25,8 @@ st.set_page_config(
 st.title("Calculadora EDO")
 
 grupo, metodo = left_sidebar()
+
+st.header(f"{Encabezado().encabezado(grupo, metodo)}")
 
 if grupo != "taylor" and metodo != "serie":
     show_edo_page(main_controller, grupo, metodo)

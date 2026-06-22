@@ -44,7 +44,6 @@ def left_sidebar():
                 st.session_state.metodo = (
                     "runge_kutta", "rk4"
                 )
-
         with st.expander("Implícitos", expanded=False):
             if st.button("Trapecio", use_container_width=True):
                 st.session_state.metodo = (

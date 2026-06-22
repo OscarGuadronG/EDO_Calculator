@@ -7,21 +7,21 @@ from model.methods.runge_kutta.Implicitos.Gauss_Legendre_method import GaussLege
 from model.methods.runge_kutta.Implicitos.traprecio_method import TrapecioMethod
 
 class RungeKuttaController:
-    def execute(self, method, f, x0, y0, h, xf, **keywargs):
+    def execute(self, method, f, x0, y0, h, n, xf, **keywargs):
         if method == "punto_medio":
-            solver = RK2MidpointMethod(f, x0, y0, h, xf)
+            solver = RK2MidpointMethod(f, x0, y0, h, n, xf)
         elif method == "ralston":
-            solver = RalstonMethod(f, x0, y0, h, xf)
+            solver = RalstonMethod(f, x0, y0, h, n, xf)
         elif method == "rk2":
-            solver = RK2Method(f, x0, y0, h, xf)
+            solver = RK2Method(f, x0, y0, h, n, xf)
         elif method == "rk3":
-            solver = RK3Method(f, x0, y0, h, xf)
+            solver = RK3Method(f, x0, y0, h, n, xf)
         elif method == "rk4":
-            solver = RK4Method(f, x0, y0, h, xf)
+            solver = RK4Method(f, x0, y0, h, n, xf)
         elif method == "gauss_legendre":
-            solver = GaussLegendreMethod(f, x0, y0, h, xf)
+            solver = GaussLegendreMethod(f, x0, y0, h, n, xf)
         elif method == "trapecio":
-            solver = TrapecioMethod(f, x0, y0, h, xf)
+            solver = TrapecioMethod(f, x0, y0, h, n, xf)
         else:
             raise ValueError("Metodo no soportado")
         results = solver.solve()

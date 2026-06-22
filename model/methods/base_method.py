@@ -2,13 +2,14 @@ from abc import ABC, abstractmethod
 from pyparsing import results
 
 class BaseMethod(ABC):
-    def __init__(self, f, x0, y0, h, xf):
+    def __init__(self, f, x0, y0, h, n, xf):
         self.f = f
         self.x0 = x0
         self.y0 = y0
         if h == 0:
             raise ValueError("El paso h debe distinto de 0")    
         self.h = h
+        self.n = n
         self.xf = xf
 
     def solve(self):
@@ -17,7 +18,7 @@ class BaseMethod(ABC):
 
         results = [(x, y)]
 
-        while x < self.xf:
+        while x < self.xf and len(results) <= self.n:
             y = self.step(x, y)
             x = x + self.h
             results.append((x, y))

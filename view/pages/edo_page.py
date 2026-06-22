@@ -1,15 +1,14 @@
+from ast import expr
+
 import streamlit as st
 import pandas as pd
 
 from controller.main_controller import MainController
+from view.components.function_input import render_math_function_input
 
 def show_edo_page(main_controller, grupo, metodo):
 
-    st.header(f"{grupo} - {metodo}")
-
-    f_expr = st.text_input(
-        "Ingrese f(x,y)", value="x+y"
-    )
+    f_expr = render_math_function_input()
 
     col1, col2 = st.columns(2)
     with col1:
@@ -29,7 +28,9 @@ def show_edo_page(main_controller, grupo, metodo):
         )
 
     if st.button("Calcular"):
-        
+        if f_expr is None:
+            st.error("Por favor, ingrese una función válida.")
+            return
         try:
             resultado = main_controller.execute_group(
                 grupo, metodo, f_expr, x0, y0, xf, int(n)
@@ -46,6 +47,11 @@ def show_edo_page(main_controller, grupo, metodo):
                 df, use_container_width=True
             )
 
+            yf_final = resultado["y"][-1]
+            st.metric(
+                label=f"y({xf})", value=f"{yf_final:.8f}"
+            )
+            
             st.subheader("Gráfica")
             st.line_chart(
                 df.set_index("x")["y"]

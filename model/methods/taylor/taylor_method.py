@@ -2,8 +2,8 @@ import sympy as sp
 from model.methods.base_method import BaseMethod
 
 class TaylorMethod(BaseMethod):
-    def __init__(self, f_expr, x0, y0, h, xf, order):
-        print("Antes de construir Taylor")
+    def __init__(self, f_expr, x0, y0, h, n, xf, order):
+        
         self.order = order
         self.x_sym = sp.Symbol('x')
         self.y_sym = sp.Symbol('y')
@@ -27,9 +27,9 @@ class TaylorMethod(BaseMethod):
         
         # Creamos una función lambda a partir de la expresión de Taylor
         f_lambda = sp.lambdify((self.x_sym, self.y_sym), taylor_expr, "numpy")
-        print("Taylor construido")
+        
         # Pasamos la función f_lambda a la clase base
-        super().__init__(f_lambda, x0, y0, h, xf)
+        super().__init__(f_lambda, x0, y0, h, n, xf)
     
     def step(self, x, y):
         return self.f(x, y)
