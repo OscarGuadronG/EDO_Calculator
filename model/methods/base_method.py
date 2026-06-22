@@ -6,10 +6,12 @@ class BaseMethod(ABC):
         self.f = f
         self.x0 = x0
         self.y0 = y0
-        if h == 0:
-            raise ValueError("El paso h debe distinto de 0")    
+        if xf <= x0:
+            raise ValueError("xf debe ser mayor que x0") 
         self.h = h
         self.n = n
+        if n <= 0:
+            raise ValueError("n debe ser un entero positivo")
         self.xf = xf
 
     def solve(self):
