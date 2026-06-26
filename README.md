@@ -22,6 +22,8 @@ cd <proyecto>
 python -m venv venv
 ```
 - Activar entorno venv
+```bash
+```
 Linux: 
 ```bash 
 source venv/bin/activate
