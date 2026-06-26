@@ -7,7 +7,7 @@ def _insert_token(token: str):
     st.session_state.math_function += token
 
 def render_math_function_input(
-    label: str = "Ingrese f(x,y)",
+    label: str = "Y' = f(x,y)",
     default_value: str = "x+y"
 ):
     if "math_function" not in st.session_state:

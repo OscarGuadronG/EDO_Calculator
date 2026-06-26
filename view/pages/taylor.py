@@ -31,6 +31,9 @@ def show_taylor(main_controller, grupo, metodo):
             "Número de pasos", min_value=1, value=5
         )
 
+    h = (xf - x0) / n if n != 0 else 0
+    st.subheader(f"h = {h:.8f}")
+
     if st.button("Calcular"):
         if f_expr is None:
             st.error("Por favor, ingrese una función válida.")
@@ -52,6 +55,7 @@ def show_taylor(main_controller, grupo, metodo):
             )
             
             yf_final = resultado["y"][-1]
+            st.subheader("Resultado final")
             st.metric(
                 label=f"y({xf})", value=f"{yf_final:.8f}"
             )            

@@ -6,8 +6,8 @@ class BaseMethod(ABC):
         self.f = f
         self.x0 = x0
         self.y0 = y0
-        if xf <= x0:
-            raise ValueError("xf debe ser mayor que x0") 
+        if xf == x0:
+            raise ValueError("xf debe ser distinto de x0") 
         self.h = h
         self.n = n
         if n <= 0:
@@ -20,7 +20,7 @@ class BaseMethod(ABC):
 
         results = [(x, y)]
 
-        while x < self.xf and len(results) <= self.n:
+        while len(results) <= self.n:
             y = self.step(x, y)
             x = x + self.h
             results.append((x, y))

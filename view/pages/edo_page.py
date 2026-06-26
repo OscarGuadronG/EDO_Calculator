@@ -24,8 +24,11 @@ def show_edo_page(main_controller, grupo, metodo):
         )
         n = st.number_input(
             "Número de pasos",
-            min_value=1, value=10
+            min_value=1, value=5
         )
+    
+    h = (xf - x0) / n if n != 0 else 0
+    st.subheader(f"h = {h:.8f}")
 
     if st.button("Calcular"):
         if f_expr is None:
@@ -48,6 +51,7 @@ def show_edo_page(main_controller, grupo, metodo):
             )
 
             yf_final = resultado["y"][-1]
+            st.subheader("Resultado final")
             st.metric(
                 label=f"y({xf})", value=f"{yf_final:.8f}"
             )
