@@ -51,7 +51,7 @@ def show_taylor(main_controller, grupo, metodo):
 
             st.subheader("Tabla de resultados")
             st.dataframe(
-                df, use_container_width=True
+                df, width="stretch"
             )
             
             yf_final = resultado["y"][-1]
