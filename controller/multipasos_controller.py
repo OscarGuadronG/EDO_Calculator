@@ -11,17 +11,17 @@ class MultipasosController:
     def execute(self, method, f, x0, y0, h, n, xf, **keywargs):
         if method == "ab2":
             solver = AdamsBashforth2Method(f, x0, y0, h, n, xf)
-        if method == "ab3":
+        elif method == "ab3":
             solver = AdamsBashforth3Method(f, x0, y0, h, n, xf)
-        if method == "ab4":
+        elif method == "ab4":
             solver = AdamsBashforth4Method(f, x0, y0, h, n, xf)
-        if method == "am2":
+        elif method == "am2":
             solver = AdamsMoulton2Method(f, x0, y0, h, n, xf)
-        if method == "am3":
+        elif method == "am3":
             solver = AdamsMoulton3Method(f, x0, y0, h, n, xf)
-        if method == "am4":
+        elif method == "am4":
             solver = AdamsMoulton4Method(f, x0, y0, h, n, xf)
-        if method == "predictor_corrector":
+        elif method == "predictor_corrector":
             solver = PredictorCorrectorMethod(f, x0, y0, h, n, xf)
         else:
             raise ValueError(f"Método '{method}' no soportado")
